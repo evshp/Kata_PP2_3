@@ -21,10 +21,8 @@
     <input type="text" th:field="*{email}" id="email">
     <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email не может быть пустым</div>
     <br>
-<!--    <label for="dateOfBirth">Дата рождения:</label>-->
-<!--    <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth">-->
-<!--    <div style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Ошибка даты рождения</div>-->
-<!--    <br>-->
+    <input type="hidden" th:field="*{age}">
+    <input type="hidden" th:field="*{dateOfBirth}">
     <input type="submit" value="Обновить пользователя">
 </form>
 

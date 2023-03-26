@@ -14,7 +14,7 @@ public class CalculatorController {
 
 
     @GetMapping("/calculator")
-    public String CalcControler(@RequestParam(value = "a", required = false) Integer a,
+    public String CalcController(@RequestParam(value = "a", required = false) Integer a,
                                 @RequestParam(value = "b", required = false) Integer b,
                                 @RequestParam(value = "operation", required = false) String operation,
                                 Model model) {

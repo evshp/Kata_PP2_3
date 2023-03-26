@@ -1,65 +1,61 @@
 package com.models;
 
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 
+@Entity
+@Table(name = "users")
 public class User {
 
-
-    public User(Long id, String  name, String lastname, LocalDate dateOfBirth, byte age) {
-        this.id = id;
+    public User(String name, String lastname, LocalDate dateOfBirth, String email) {
+        age = (byte) Period.between(dateOfBirth, LocalDate.now()).getYears();
         this.name = name;
         this.lastname = lastname;
         this.dateOfBirth = dateOfBirth;
-        this.age = age;
-    }
-
-    public User(long id, String name, String lastname, LocalDate dateOfBirth, byte age, String email) {
-        this.id = id;
-        this.name = name;
-        this.lastname = lastname;
-        this.dateOfBirth = dateOfBirth;
-        this.age = age;
         this.email = email;
     }
 
-    public User(String name, String lastname, LocalDate dateOfBirth, byte age) {
-        this.name = name;
-        this.lastname = lastname;
-        this.dateOfBirth = dateOfBirth;
-        this.age = age;
-    }
+//Fields
 
-    public User() {
-    }
-
-    //Fields
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotEmpty(message = "Поле не должно быть пустым")
     @Size(min = 2, max = 30, message = "Имя должно быть от 2 до 30 символов")
+    @Column(name = "name")
     private String name;
 
     @NotEmpty(message = "Поле не должно быть пустым")
     @Size(min = 2, max = 30, message = "Фамилия должна быть от 2 до 30 символов")
+    @Column(name = "lastName")
     private String lastname;
 
 
     @NotNull(message = "Поле не должно быть пустым")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "dateOfBirth")
     private LocalDate dateOfBirth;
 
-    @NotNull
+    @Transient
     private byte age;
 
     @NotEmpty(message = "Поле не должно быть пустым")
+    @Column(name = "email")
     private String email;
+
+    public User() {
+
+    }
+
 
     public String getEmail() {
         return email;
@@ -103,11 +99,8 @@ public class User {
     }
 
     public byte getAge() {
-        return age;
-    }
 
-    public void setAge(byte age) {
-        this.age = age;
+        return (byte) Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 
     @Override
@@ -117,7 +110,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
-                ", age=" + age +
+                ", age=" + getAge() +
                 ", email='" + email + '\'' +
                 '}';
     }

@@ -24,17 +24,15 @@
         <input type="hidden" name="id" th:value="${user.getId()}">
         <button type="submit">Обновить пользователя</button>
     </form>
-
     <form th:method="delete"
           th:action="@{/delete(id=${user.getId()})}"
           th:object="${user}">
         <button type="submit">Удалить пользователя</button>
     </form>
 </th:block>
-
-
 <hr>
 
+<!-- Форма для создания нового пользователя -->
 <form th:method="post"
       th:action="@{/postAction}"
       th:object="${formUser}">
@@ -45,14 +43,13 @@
     <label for="lastname">Введите фамилию</label>
     <input type="text" th:field="*{lastname}" id="lastname">\
     <div style="color: red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Ошибка фамилии</div>
+    <br>
     <label for="dateOfBirth">Дата рождения:</label>
     <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth">
     <div style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Ошибка даты
         рождения
     </div>
-    <label for="age">Возраст:</label>
-    <input type="number" th:field="*{age}" id="age">
-    <div style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Ошибка возраста</div>
+    <br>
     <label for="email">Введите email</label>
     <input type="text" th:field="*{email}" id="email">
     <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Ошибка email</div>

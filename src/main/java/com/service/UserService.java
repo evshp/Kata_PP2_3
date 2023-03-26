@@ -11,7 +11,7 @@ public interface UserService {
 
     void dropUsersTable() throws SQLException;
 
-    void saveUser(String name, String lastName, LocalDate dateOfBirth , byte age, String email);
+    void saveUser(String name, String lastName, LocalDate dateOfBirth , String email);
 
     void removeUserById(long id);
 
