@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+//Класс UserServiceJPA реализует интерфейс UserService и использует репозиторий UserRepository для работы с базой данных.
 @Service
 @Transactional (readOnly = true)
 public class UserServiceJPA implements UserService {
