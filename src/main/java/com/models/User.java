@@ -1,12 +1,10 @@
 package com.models;
-
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -29,12 +27,12 @@ public class User {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotEmpty(message = "Поле не должно быть пустым")
+    @NotBlank(message = "Поле не должно быть пустым")
     @Size(min = 2, max = 30, message = "Имя должно быть от 2 до 30 символов")
     @Column(name = "name")
     private String name;
 
-    @NotEmpty(message = "Поле не должно быть пустым")
+    @NotBlank(message = "Поле не должно быть пустым")
     @Size(min = 2, max = 30, message = "Фамилия должна быть от 2 до 30 символов")
     @Column(name = "lastName")
     private String lastname;
@@ -48,7 +46,7 @@ public class User {
     @Transient
     private byte age;
 
-    @NotEmpty(message = "Поле не должно быть пустым")
+    @NotBlank(message = "Поле не должно быть пустым")
     @Column(name = "email")
     private String email;
 
@@ -66,10 +64,19 @@ public class User {
     }
 
     //Getters and Setters
+
+
     public long getId() {
-        return this.id;
+        return id;
     }
 
+    public void setAge(byte age) {
+        this.age = age;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -96,7 +103,6 @@ public class User {
     }
 
     public byte getAge() {
-
         return (byte) Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 

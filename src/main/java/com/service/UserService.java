@@ -1,15 +1,11 @@
 package com.service;
 
 import com.models.User;
-
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
-    void createUsersTable() throws SQLException;
-
-    void dropUsersTable() throws SQLException;
 
     void saveUser(String name, String lastName, LocalDate dateOfBirth , String email);
 
@@ -20,6 +16,6 @@ public interface UserService {
     List<User> getAllUsers();
 
     void cleanUsersTable();
-
     void update(long id, User user);
+    Optional<User> getUserByEmail(String email);
 }

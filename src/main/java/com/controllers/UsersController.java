@@ -40,18 +40,18 @@ public class UsersController {
 
     //Получить пользователя по id
     @GetMapping("userPage/{id}")
-    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("formUser") User user) {
+    public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("users", userServiceJPA.getAllUsers());
         model.addAttribute("user", userServiceJPA.getUserById(id));
+        model.addAttribute("formUser", new User());
         return "users/userPage";
     }
 
     //Создать нового пользователя
     @PostMapping("/postAction")
-    public String create(@ModelAttribute("formUser") @Valid User user, BindingResult bindingResult, Model model) {
+    public String create(@ModelAttribute("formUser") @Valid User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            model.addAttribute("user", userServiceJPA.getUserById(0));
             return "users/userPage";
         }
         try {
@@ -77,7 +77,6 @@ public class UsersController {
     @PatchMapping("/users/{id}")
     public String update(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult) {
-        user.setDateOfBirth(user.getDateOfBirth());
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "users/edit";

@@ -1,42 +1,27 @@
 package com.service;
 
 
-import com.dao.UserDaoJDBCTemplate;
 import com.models.User;
 import com.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 //Класс UserServiceJPA реализует интерфейс UserService и использует репозиторий UserRepository для работы с базой данных.
 @Service
-@Transactional (readOnly = true)
+@Transactional(readOnly = true)
 public class UserServiceJPA implements UserService {
 
     private final UserRepository userRepository;
-    private final UserDaoJDBCTemplate userDaoJDBCTemplate;
+
 
     @Autowired
-    public UserServiceJPA(UserRepository userRepository, UserDaoJDBCTemplate userDaoJDBCTemplate) {
-        this.userDaoJDBCTemplate = userDaoJDBCTemplate;
+    public UserServiceJPA(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-
-    @Override
-    public void createUsersTable() throws SQLException {
-        userDaoJDBCTemplate.createUsersTable();
-    }
-
-    @Override
-    public void dropUsersTable() throws SQLException {
-        userDaoJDBCTemplate.dropUsersTable();
     }
 
 
@@ -82,7 +67,9 @@ public class UserServiceJPA implements UserService {
     }
 
 
-
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
 
 }
